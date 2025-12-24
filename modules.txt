@@ -1,0 +1,6 @@
+virtualenv myenv
+myenv\scripts\activate
+cd .\SocialMedia\
+pip install flask
+pip install SQLAlchemy
+pip install mysqlclient

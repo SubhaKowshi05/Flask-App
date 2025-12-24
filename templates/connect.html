@@ -1,0 +1,30 @@
+{% extends "auth.html" %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+ {% block form %}
+      <h1 class="text-center">CONNECT WITH PEOPLE</h1>  
+      <h6 class="text-center">Find New Friends and Bring The World Close To You...</h6>    
+{% endblock form %}
+{% include "messages.html" %}
+<div class="container m-4">
+<table class="table" class="text-center">
+    <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Add Friend</th>
+            <th scope="col">Remove Friend</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+        <th scope="row">{{user.first_name}} {{user.last_name}}</th>
+        <th scope="row"><a href="/connectfriend/{{user.user_id}}/{{current_user.user_id}}" class="btn btn-outline btn-sm btn-secondary">Add</a></th>
+        <th scope="row"><a href="/removefriend/{{user.user_id}}/{{current_user.user_id}}" class="btn btn-outline btn-sm btn-secondary">Remove</a></th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+{% endblock body %}

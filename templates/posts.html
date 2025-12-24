@@ -1,0 +1,76 @@
+{% extends "auth.html" %}
+{% block title %}Posts{% endblock title %}
+{% block form %}
+<h1 class="text-center"> Add New Posts </h1>
+<div class="center-page-container">
+<div class="card p-1">
+    {% include "messages.html" %}
+    <form action="/posts" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="hidden" value="{{current_user.email}}" name="email" placeholder="Enter Your Email Address" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="hidden" value="{{current_user.first_name}} {{current_user.last_name}}" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="text" name="title" placeholder="Enter Post Title" required>
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control mt-2 p-3" type="text" name="description" placeholder="Enter Post Description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="file" name="image" required>
+        </div>
+        
+        <br>
+        <div class="d-grid gap-2">
+  <button class="btn btn-secondary" type="submit">Upload</button>
+
+</div>
+    </form>
+</div>
+
+<hr>
+    <h3 class="center-title">Your Posts</h3>
+
+
+{% if user_posts %}
+    {% for post in user_posts  %}
+    <div class="card mt-3 shadow">
+        <div class="card-body">
+
+            <h4 class="card-title">{{ post.post_title }}</h4>
+            <p class="card-text">{{ post.post_description }}</p>
+
+            {% if post.image %}
+            <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}" 
+                 class="img-fluid rounded mb-3" 
+                 style="max-height: 350px; object-fit: cover;">
+            {% endif %}
+
+            <p class="text-muted">
+                Posted by: {{ post.name }} <br>
+                Date: {{ post.date }} | Time: {{ post.time }}
+            </p>
+
+            <a href="/like/{{post.post_id}}" class="btn btn-outline-primary btn-sm">
+                ❤️ Like {{ post.likes or 0 }}
+            </a>
+
+            <a href="/viewcomment/{{post.post_id}}" class="btn btn-outline-secondary btn-sm">
+                💬 View Comments
+            </a>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+{% else %}
+    <h5 class="text-center mt-3">You have not uploaded any posts yet.</h5>
+{% endif %}
+
+{% endblock form %}

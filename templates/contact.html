@@ -1,0 +1,23 @@
+{% extends "auth.html" %}
+{% block title %}Contact{% endblock title %}
+{% block form %}
+<h1 class="text-center">Contact Us</h1>
+<div class="card p-1">
+    {% include "messages.html" %}
+    <form action="/contact/" method="post">
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="email" name="email" placeholder="Enter Your Email Address" required>
+        </div>
+
+        <div class="form-group">
+            <textarea name="description" id="" class="form-control mt-2" cols="10" rows="10" placeholder="Enter your Feedback/Complaint Here" required></textarea>
+        </div>
+        
+        <br>
+        <div class="d-grid gap-2">
+  <button class="btn btn-secondary" type="submit">Submit</button>
+
+</div>
+    </form>
+</div>
+{% endblock form %}

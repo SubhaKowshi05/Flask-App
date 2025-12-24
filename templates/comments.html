@@ -1,0 +1,22 @@
+{% extends "auth.html" %}
+{% block title %}Comments{% endblock title %}
+
+{% block form %}
+<h1 class="text-center">Comments</h1>
+
+    {% include "messages.html" %}
+    
+    {% if post %}
+        {% for p in post %}
+            <div class="card p-3">
+                <li><h5>{{ p.comment }}</h5>
+                <p><strong>Commented By:</strong> {{ p.commented_by }}</p>
+                <p><strong>Commented On:</strong> {{ p.commented_on }}</p>
+                <hr></li>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted">No comments yet for this post.</p>
+    {% endif %}
+</div>
+{% endblock form %}

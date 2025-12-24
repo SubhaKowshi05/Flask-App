@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+{% include "messages.html" %}
+<h1 class="text-center">POSTS</h1>
+<hr>
+
+<section id="details" class="details section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Details</h2>
+    <div><span>Check Our</span> <span class="description-title">Details</span></div>
+  </div>
+  <!-- End Section Title -->
+
+  <div class="container">
+    {% for d in data  %}
+      <div class="row gy-4 align-items-center features-item mb-5">
+        <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+          <img src="{{ url_for('static', filename='uploads/' + d.image) }}" class="img-fluid rounded shadow" alt="">
+        </div>
+        <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+          <h3>{{ d.post_title }}</h3>
+          <p class="fst-italic">{{ d.post_description }}</p>
+          <ul>
+            <li><i class="bi bi-check"></i> <span>Uploaded by : {{ d.name if d.name else 'Unknown' }}</span></li>
+            <li><i class="bi bi-check"></i> <span>Uploaded on : {{ d.date }} {{d.time}}</span></li>
+            <div class="d-flex align-items-center mt-2">
+  <a href="/like/{{d.post_id}}" class="me-4">
+    <i class="fa-solid fa-thumbs-up fa-bounce fa-sm" style="color: #B197FC;"></i>
+    <span style="color: #B197FC;"> Like</span>
+  </a>
+
+  <span class="me-4">
+    <i class="fa-regular fa-heart" style="color: #B197FC;"></i>
+    <span style="color: #B197FC;"> Liked By {{d.likes}}</span>
+  </span>
+
+  <a href="/viewcomment/{{d.post_id}}">
+    <i class="fa-solid fa-eye fa-beat-fade" style="color: #B197FC;"></i>
+    <span style="color: #B197FC;"> View Comments</span>
+  </a>
+</div>
+
+
+          <hr>
+            <form action="/comment/{{d.post_id}}" method="post">
+              <input type="hidden" name="commented" value="{{current_user.first_name}} {{current_user.last_name}}">
+              <label for="comment">Add Your Comments</label>
+              <textarea name="comment" class="form-control mt-3 mb-3" required></textarea>
+              <button class="btn btn-secondary">Add Comment</button>
+            </form>
+          </hr>
+            </ul>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</section>
+<!-- /Details Section -->
+
+{% endblock body %}

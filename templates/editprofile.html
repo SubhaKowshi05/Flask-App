@@ -1,0 +1,32 @@
+{% extends "auth.html" %}
+{% block title %}Ediit Profile{% endblock title %}
+{% block form %}
+<h1 class="text-center"> Edit Your Profile </h1>
+<div class="card p-1">
+    {% include "messages.html" %}
+    <form action="/updateprofile/{{userdata.user_id}}" method="post" enctype="multipart/form-data">
+        <div class="form-group ">
+            <input class="form-control mt-2 p-3" type="text" name="fname" value="{{userdata.first_name}}"  required>
+        </div>
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="text" name="lname" value="{{userdata.last_name}}"  required>
+        </div>
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="email" name="email" value="{{userdata.email}}"  required>
+        </div>
+        <div class="form-group">
+            <input class="form-control mt-2 p-3" type="number" name="phone" value="{{userdata.phone}}"  required>
+        </div>
+        <div class="form-group">
+            <label for="file">Upload Your Profile Picture</label>
+            <input class="form-control mt-2 p-3" type="file" name="profile" placeholder="Select your profile image">
+        </div>
+        
+        <br>
+        <div class="d-grid gap-2">
+  <button class="btn btn-secondary" type="submit">Update Profile</button>
+
+</div>
+    </form>
+</div>
+{% endblock form %}
